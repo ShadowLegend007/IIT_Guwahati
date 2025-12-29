@@ -1,1 +1,1 @@
-# IIT GUWAHATI
+# Indian Institute of Technology GUWAHATI
