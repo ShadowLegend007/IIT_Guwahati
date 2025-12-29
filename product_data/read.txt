@@ -1,0 +1,1 @@
+On that JSON file only have total 4084 products details which have only 83 page data. If any one wants more data then run the code's start_page = 84.
