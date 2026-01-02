@@ -3,7 +3,6 @@ dotenv.config();
 
 const required = (key) => {
   if (!process.env[key]) {
-    console.error(`Missing required env: ${key}`);
     process.exit(1);
   }
   return process.env[key];
