@@ -1,66 +1,32 @@
-import { useState } from "react";
+import React from "react";
+import { motion, HTMLMotionProps } from "motion/react";
 import { LucideIcon } from "lucide-react";
 
-interface AnimatedButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
+interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: LucideIcon;
-  variant?: "primary" | "secondary";
-  type?: "button" | "submit";
-  disabled?: boolean;
-  className?: string;
+  children: React.ReactNode;
 }
 
-export function AnimatedButton({
-  children,
-  onClick,
-  icon: Icon,
-  variant = "primary",
-  type = "button",
-  disabled = false,
-  className = ""
-}: AnimatedButtonProps) {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled) return;
-
-    setIsClicked(true);
-    setTimeout(() => setIsClicked(false), 600);
-
-    if (onClick) {
-      onClick();
-    }
-  };
-
-  const baseStyles = "relative inline-flex items-center gap-2 px-6 py-3 rounded-pill font-medium transition-all duration-300 overflow-hidden disabled:opacity-40 disabled:cursor-not-allowed";
-
-  const variantStyles = variant === "primary"
-    ? "gradient-bg text-white shadow-lg glow-purple hover:shadow-xl hover:scale-105 active:scale-95"
-    : "glass-card border border-border-glass text-accent hover:border-accent/50 hover:glow-purple active:scale-95";
+export function AnimatedButton({ icon: Icon, children, className = "", onClick, ...props }: AnimatedButtonProps) {
+  // Cast props to any to avoid strict Motion/React event type conflicts
+  const motionProps = props as any;
 
   return (
-    <button
-      type={type}
-      onClick={handleClick}
-      disabled={disabled}
-      className={`${baseStyles} ${variantStyles} ${className} group`}
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      className={`relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-medium text-white transition-all duration-300 bg-black/40 backdrop-blur-xl border border-white/10 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] rounded-full hover:bg-black/60 hover:border-white/20 hover:shadow-[0_8px_32px_-8px_rgba(124,58,237,0.3)] group ${className}`}
+      {...motionProps}
     >
-      {/* Ripple effect */}
-      {isClicked && (
-        <span
-          className="absolute top-1/2 left-1/2 w-2 h-2 bg-white/50 rounded-full -translate-x-1/2 -translate-y-1/2"
-          style={{
-            animation: 'ripple 0.6s ease-out',
-          }}
-        />
-      )}
+      {/* Background slide effect if desired, or just solid */}
 
-      {/* Content */}
-      <span className="relative z-10 flex items-center gap-2">
+      <span className="relative flex items-center gap-2">
         <span>{children}</span>
-        {Icon && <Icon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />}
+        {Icon && (
+          <Icon className="w-5 h-5 transition-transform duration-300 transform group-hover:translate-x-1" />
+        )}
       </span>
-    </button>
+    </motion.button>
   );
 }

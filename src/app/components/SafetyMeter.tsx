@@ -4,28 +4,29 @@ import { CheckCircle, AlertTriangle, XCircle } from "lucide-react";
 interface SafetyMeterProps {
   safetyScore: number; // 0-100
   label?: string;
+  size?: "small" | "medium" | "large";
 }
 
-export function SafetyMeter({ safetyScore, label = "Safety Score" }: SafetyMeterProps) {
+export function SafetyMeter({ safetyScore, label = "Safety Score", size = "medium" }: SafetyMeterProps) {
   // Determine color based on score
   const getColor = () => {
-    if (safetyScore >= 70) return { 
-      bg: "bg-emerald-500", 
+    if (safetyScore >= 70) return {
+      bg: "bg-emerald-500",
       text: "text-emerald-500",
       glow: "shadow-emerald-500/20",
-      icon: CheckCircle 
+      icon: CheckCircle
     };
-    if (safetyScore >= 40) return { 
-      bg: "bg-yellow-500", 
+    if (safetyScore >= 40) return {
+      bg: "bg-yellow-500",
       text: "text-yellow-500",
       glow: "shadow-yellow-500/20",
-      icon: AlertTriangle 
+      icon: AlertTriangle
     };
-    return { 
-      bg: "bg-red-500", 
+    return {
+      bg: "bg-red-500",
       text: "text-red-500",
       glow: "shadow-red-500/20",
-      icon: XCircle 
+      icon: XCircle
     };
   };
 
@@ -37,21 +38,24 @@ export function SafetyMeter({ safetyScore, label = "Safety Score" }: SafetyMeter
 
   const color = getColor();
   const Icon = color.icon;
+  const isSmall = size === "small";
 
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between mb-4">
+    <div className={`w-full ${isSmall ? 'scale-90 origin-top-left' : ''}`}>
+      <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <Icon className={`w-5 h-5 ${color.text}`} />
-          <span className="text-sm text-muted-foreground">{label}</span>
+          {!isSmall && <Icon className={`w-5 h-5 ${color.text}`} />}
+          <span className={`text-sm text-muted-foreground ${isSmall ? 'hidden' : ''}`}>{label}</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className={`text-2xl ${color.text}`}>{safetyScore}%</span>
+          <span className={`${isSmall ? 'text-lg' : 'text-2xl'} ${color.text} flex items-center font-bold`}>
+            {Math.round(safetyScore)}%
+          </span>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="relative h-3 bg-secondary dark:bg-secondary rounded-full overflow-hidden">
+      <div className={`relative ${isSmall ? 'h-2' : 'h-3'} bg-secondary dark:bg-secondary rounded-full overflow-hidden`}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${safetyScore}%` }}
@@ -63,7 +67,7 @@ export function SafetyMeter({ safetyScore, label = "Safety Score" }: SafetyMeter
       {/* Status label */}
       <div className="mt-3 flex items-center justify-between">
         <span className="text-sm text-muted-foreground">{getStatus()}</span>
-        
+
         {/* Scale markers */}
         <div className="flex gap-1 text-xs text-muted-foreground">
           <span className="text-red-500">0</span>

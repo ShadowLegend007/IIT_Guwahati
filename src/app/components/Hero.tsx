@@ -1,67 +1,56 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { BreathingOrb } from "./BreathingOrb";
 import { AnimatedButton } from "./AnimatedButton";
+import SplitText from "./SplitText";
 
 interface HeroProps {
   onGetStarted: () => void;
 }
 
 export function Hero({ onGetStarted }: HeroProps) {
+  const handleAnimationComplete = () => {
+    // Optional callback
+  };
+
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-4 py-20 relative overflow-hidden">
-      {/* Background glow effect */}
-      <div className="absolute inset-0 glow-combined opacity-30 pointer-events-none" />
+    <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500/20 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-12 md:mb-16"
-      >
-        <BreathingOrb />
-      </motion.div>
+      <div className="container px-4 mx-auto text-center relative z-10 flex flex-col items-center">
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center max-w-4xl mx-auto"
-      >
-        <h1 className="mb-6 tracking-tight" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-          <span className="gradient-text">Interpret Ingredients.</span>{" "}
-          <span className="text-foreground">Instantly.</span>
-        </h1>
+        <div className="mb-6 flex justify-center w-full">
+          <SplitText
+            text="Welcome to NeuraGlance"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground drop-shadow-[0_0_15px_rgba(124,58,237,0.5)] pb-4 tracking-tighter"
+            delay={100}
+            duration={0.6}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-100px"
+            textAlign="center"
+            onLetterAnimationComplete={handleAnimationComplete}
+          />
+        </div>
 
-        <p className="mb-10 md:mb-12 text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
+        <p className="max-w-2xl mx-auto text-lg md:text-xl text-text-secondary mb-10 leading-relaxed animate-fade-in delay-100">
           An AI-native co-pilot that reads labels so you don't have to.{" "}
           <span className="text-foreground font-medium">No forms, just insight.</span>
         </p>
 
-        <AnimatedButton onClick={onGetStarted} icon={ArrowRight}>
-          Try the Co-Pilot
-        </AnimatedButton>
-      </motion.div>
+        <div className="mt-8">
+          <AnimatedButton onClick={onGetStarted} icon={ArrowRight}>
+            Try the Co-Pilot
+          </AnimatedButton>
+        </div>
+      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-pill border border-border-glass flex items-start justify-center p-2"
-        >
-          <motion.div
-            animate={{ opacity: [0.3, 1, 0.3] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1.5 h-1.5 rounded-full bg-accent"
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

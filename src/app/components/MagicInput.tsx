@@ -1,85 +1,202 @@
-import { Camera, FileText, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { Search, Sparkles, Upload, FileText, Camera, Mic, Send, Image as ImageIcon, Link } from "lucide-react";
+import { useState, useRef } from "react";
+import BlurText from "./BlurText";
+import { motion, AnimatePresence } from "motion/react";
+import { CameraUploadModal } from "./CameraUploadModal";
 
 interface MagicInputProps {
-  onAnalyze: (text: string) => void;
+  onAnalyze: (text: string, file?: File) => void;
 }
 
 export function MagicInput({ onAnalyze }: MagicInputProps) {
   const [input, setInput] = useState("");
-  const [isClicked, setIsClicked] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [showCameraModal, setShowCameraModal] = useState(false);
+  const [searchMode, setSearchMode] = useState<"name" | "picture">("name");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
-      setIsClicked(true);
-      setTimeout(() => setIsClicked(false), 700);
       onAnalyze(input);
+      setInput("");
     }
   };
 
+  const handleFileSelect = (file: File) => {
+    onAnalyze(file.name, file);
+    setInput("");
+  };
+
+  const handleCameraCapture = () => {
+    // Trigger camera via file input with capture attribute
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.capture = 'environment'; // Use rear camera
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        handleFileSelect(file);
+      }
+    };
+    input.click();
+  };
+
+  const handleFileUpload = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFileSelect(file);
+    }
+  };
+
+  const handlePictureMode = () => {
+    setSearchMode("picture");
+  };
+
   return (
-    <div className="w-full max-w-4xl mx-auto px-4">
-      <form onSubmit={handleSubmit}>
-        <div className="relative group">
-          <div className="relative flex items-center gap-3 p-4 md:p-5 rounded-xl border border-border bg-card hover:border-accent/50 transition-all duration-200 shadow-sm hover:shadow-md">
-            {/* Icons */}
-            <button
-              type="button"
-              className="p-2.5 rounded-lg hover:bg-muted transition-colors duration-200 group/icon"
-              aria-label="Scan with camera"
-            >
-              <Camera className="w-5 h-5 text-muted-foreground group-hover/icon:text-accent transition-colors duration-200" />
-            </button>
-            
-            <button
-              type="button"
-              className="p-2.5 rounded-lg hover:bg-muted transition-colors duration-200 group/icon"
-              aria-label="Paste ingredients"
-            >
-              <FileText className="w-5 h-5 text-muted-foreground group-hover/icon:text-accent transition-colors duration-200" />
-            </button>
-
-            {/* Divider */}
-            <div className="h-6 w-px bg-border" />
-
-            {/* Input field */}
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Upload a food label or paste ingredients..."
-              className="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
-            />
-
-            {/* Submit button */}
-            <button
-              type="submit"
-              disabled={!input.trim()}
-              className="relative p-2.5 rounded-lg bg-accent hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md disabled:hover:shadow-sm overflow-hidden group/btn"
-              aria-label="Analyze"
-            >
-              {/* Ripple effect */}
-              {isClicked && (
-                <span 
-                  className="absolute top-1/2 left-1/2 w-2 h-2 bg-white/50 rounded-full -translate-x-1/2 -translate-y-1/2"
-                  style={{
-                    animation: 'ripple 0.5s ease-out',
-                  }}
-                />
-              )}
-              
-              {/* Arrow icon */}
-              <ArrowRight className="w-5 h-5 text-white relative z-10 group-hover/btn:translate-x-0.5 transition-transform duration-200" />
-            </button>
-          </div>
+    <>
+      <div className="w-full relative flex flex-col items-center max-w-3xl mx-auto">
+        {/* Toggle Buttons */}
+        <div className="flex gap-2 mb-8">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setSearchMode("name")}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-base transition-all duration-300 ${searchMode === "name"
+              ? "bg-accent text-white shadow-lg"
+              : "bg-card/60 backdrop-blur-xl border-2 border-border/40 text-foreground hover:border-accent/30"
+              }`}
+          >
+            <Search className="w-5 h-5" />
+            Search by Name
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handlePictureMode}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-base transition-all duration-300 ${searchMode === "picture"
+              ? "bg-accent text-white shadow-lg"
+              : "bg-card/60 backdrop-blur-xl border-2 border-border/40 text-foreground hover:border-accent/30"
+              }`}
+          >
+            <ImageIcon className="w-5 h-5" />
+            Search by Picture
+          </motion.button>
         </div>
-      </form>
 
-      {/* Helper text */}
-      <p className="mt-4 text-center text-sm text-muted-foreground">
-        Try: "Maltitol, Whey Protein Isolate, Almonds, Cocoa Butter"
-      </p>
-    </div>
+        {/* Input Section */}
+        <div className="w-full">
+          {searchMode === "name" ? (
+            // Text Search Mode
+            <form onSubmit={handleSubmit} className="w-full relative">
+              <div className="flex flex-col gap-2">
+                <label className="text-base font-bold text-foreground">
+                  Product Name
+                </label>
+                <div className="flex gap-2">
+                  <motion.div
+                    layout
+                    className={`
+                      relative flex items-center flex-1
+                      rounded-xl
+                      transition-all duration-300 ease-out
+                      backdrop-blur-xl
+                      ${isFocused
+                        ? "bg-card/80 border-accent/40 shadow-xl ring-2 ring-accent/20"
+                        : "bg-card/60 hover:bg-card/70 border-border/50 shadow-lg hover:shadow-xl"
+                      }
+                      border-2
+                    `}
+                  >
+                    <input
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      placeholder="Enter a product name (e.g., Doritos, Oreo, Coke)"
+                      className="w-full bg-transparent border-none text-foreground text-base px-5 py-4 focus:outline-none placeholder:text-muted-foreground/60"
+                    />
+                  </motion.div>
+
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    disabled={!input.trim()}
+                    className="px-8 py-4 bg-accent text-white rounded-xl font-bold text-base hover:bg-accent/90 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  >
+                    <Search className="w-5 h-5" />
+                    Analyze
+                  </motion.button>
+                </div>
+              </div>
+            </form>
+          ) : (
+            // Picture Search Mode
+            <div className="w-full">
+              <label className="text-base font-bold text-foreground mb-3 block">
+                Upload Product Image
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                {/* Camera Button */}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleCameraCapture}
+                  className="h-[200px] md:h-[280px] w-full flex flex-col items-center justify-center gap-3 p-6 bg-card/60 hover:bg-card/80 border-2 border-border/50 hover:border-accent/30 rounded-xl transition-all duration-300 backdrop-blur-xl"
+                >
+                  <div className="p-4 bg-accent/10 rounded-full">
+                    <Camera className="w-10 h-10 text-accent" />
+                  </div>
+                  <div className="text-center">
+                    <div className="font-bold text-base text-foreground">Open Camera</div>
+                    <div className="text-sm text-muted-foreground">Take a photo</div>
+                  </div>
+                </motion.button>
+
+                {/* File Upload Button */}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleFileUpload}
+                  className="h-[200px] md:h-[280px] w-full flex flex-col items-center justify-center gap-3 p-6 bg-card/60 hover:bg-card/80 border-2 border-border/50 hover:border-accent/30 rounded-xl transition-all duration-300 backdrop-blur-xl"
+                >
+                  <div className="p-4 bg-accent/10 rounded-full">
+                    <Upload className="w-10 h-10 text-accent" />
+                  </div>
+                  <div className="text-center">
+                    <div className="font-bold text-base text-foreground">Upload File</div>
+                    <div className="text-sm text-muted-foreground">Choose from device</div>
+                  </div>
+                </motion.button>
+              </div>
+
+              {/* Hidden file input */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Camera Upload Modal - keeping for backward compatibility */}
+      <CameraUploadModal
+        isOpen={showCameraModal}
+        onClose={() => setShowCameraModal(false)}
+        onFileSelect={handleFileSelect}
+        onCameraCapture={handleCameraCapture}
+      />
+    </>
   );
 }

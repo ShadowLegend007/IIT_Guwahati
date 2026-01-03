@@ -1,0 +1,88 @@
+{
+    "status": "success",
+    "input": {
+        "product_name": "Horlicks Classic Malt",
+        "input_type": "image",
+        "image_provided": true
+    },
+    "product": {
+        "name": "Classic Malt",
+        "brand": "Horlicks",
+        "category": "Beverages and beverages preparations",
+        "country": "India,United States"
+    },
+    "marketing": {
+        "labels": [
+            "Vegetarian",
+            "Green Dot India"
+        ],
+        "claims": []
+    },
+    "images": {
+        "input_image": {
+            "filename": "image.webp",
+            "file": {},
+            "size": 17642,
+            "headers": {
+                "content-disposition": "form-data; name=\"image\"; filename=\"image.webp\"",
+                "content-type": "image/webp"
+            },
+            "_max_mem_size": 1048576
+        },
+        "reference_images": [
+            "https://images.openfoodfacts.org/images/products/890/103/080/7176/front_en.3.400.jpg",
+            "",
+            ""
+        ],
+        "source": "openfoodfacts"
+    },
+    "nutrition": {
+        "per_100g": {
+            "energy_kcal": 377,
+            "protein_g": 11,
+            "carbs_g": 79,
+            "sugar_g": 46,
+            "fat_g": 2,
+            "sat_fat_g": 1.4,
+            "sodium_mg": 1000.0
+        },
+        "source_url": "https://world.openfoodfacts.org/product/8901030807176",
+        "data_confidence": "high"
+    },
+    "verdict": {
+        "label": "occasionally_safe",
+        "headline": "OCCASIONALLY SAFE",
+        "subtext": "This product's high sugar content and ultra-processed nature make it more suitable for occasional consumption rather than a daily staple."
+    },
+    "overall_score": {
+        "percent": 40,
+        "interpretation": "While fortified with some vitamins and minerals, its very high sugar content and ultra-processed classification significantly lower its overall health score for regular intake."
+    },
+    "nutrition_score": {
+        "grade": "D"
+    },
+    "key_takeaways": {
+        "possible_concern": "The primary concern is the very high sugar content, which makes up nearly half of the product by weight, and its classification as an ultra-processed food.",
+        "generally_safe": "It is generally safe for consumption as an occasional treat, providing some milk solids and fortification with essential vitamins and minerals.",
+        "depends_on_use": "Suitability heavily depends on the frequency of consumption, portion size, and individual dietary needs. It should be consumed sparingly, especially when monitoring sugar intake."
+    },
+    "age_suitability": {
+        "children_0_12": "Should be consumed with caution and in very limited amounts due to high sugar content, which can contribute to dental issues and unhealthy eating habits.",
+        "young_12_45": "Best consumed in moderation due to its high sugar and calorie load, which might impact weight management or blood sugar levels if consumed regularly.",
+        "adults_45_plus": "Consume sparingly, particularly if managing blood sugar levels, heart health, or weight, as the high sugar content can be detrimental to these conditions."
+    },
+    "health_suitability": {
+        "diabetes": "Not suitable for regular consumption due to its very high sugar content, which can significantly impact blood sugar control.",
+        "heart": "High sugar intake is linked to increased risk factors for heart disease; therefore, consumption should be very infrequent.",
+        "weight": "High in calories and sugar, making it unsuitable for daily consumption when individuals are aiming to manage or reduce their weight.",
+        "normal": "Can be consumed occasionally as part of a balanced diet, but moderation is crucial due to its high sugar and calorie density."
+    },
+    "ai_opinion": {
+        "text": "This product is an ultra-processed beverage base with a very high sugar content. While it provides some fortification, it is best reserved for occasional consumption rather than a daily beverage, especially for individuals monitoring sugar or calorie intake. Its role should be viewed more as a treat than a routine health supplement."
+    },
+    "meta": {
+        "data_source": "OpenFoodFacts",
+        "analysis_type": "AI-interpreted",
+        "confidence_level": "medium"
+    }
+}
