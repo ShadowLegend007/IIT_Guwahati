@@ -95,6 +95,10 @@ Open a new terminal and navigate to the frontend directory:
 ```bash
 cd Code/Incognito/Frontend
 ```
+Create environment file `.env` and add your keys:
+```env
+VITE_API_URL = "http://127.0.0.1:8000"
+```
 
 Install dependencies and start the app:
 ```bash

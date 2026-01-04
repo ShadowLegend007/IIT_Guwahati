@@ -123,7 +123,7 @@ def analyze_natural_food(item_name: str):
             "brand": "Nature",
             "category": "Natural Food",
             "ingredients_text": "100% {item_name}",
-            "image_url": "[https://www.google.com/search?tbm=isch&q=](https://www.google.com/search?tbm=isch&q=){item_name.replace(' ', '+')}"
+            "image_url": "https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${item_name}&gsrlimit=1&prop=pageimages|extracts&pithumbsize=600&exintro&explaintext&exsentences=1&format=json&origin=*"
         }},
         "nutrition_per_100g": {{
             "energy_kcal": number,
@@ -132,7 +132,8 @@ def analyze_natural_food(item_name: str):
             "sugar_g": number,
             "fat_g": number,
             "sat_fat_g": number,
-            "sodium_mg": number
+            "sodium_g": number,
+            "salt_g": number
         }},
         "analysis": {{
             "verdict": {{ "label": "safe", "headline": "EXCELLENT CHOICE", "subtext": "..." }},
@@ -190,7 +191,7 @@ def generate_health_analysis(product, product_name):
 
         {{
         "verdict": {{
-            "label": "safe | occasionally_safe | not_safe",
+            "label": "safe | occasionally_safe | ok | try_to_avoid | not_safe",
             "headline": "SAFE | OCCASIONALLY SAFE | NOT SAFE",
             "subtext": "short explanation"
         }},

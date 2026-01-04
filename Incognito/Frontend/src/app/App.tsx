@@ -6,6 +6,7 @@ import { Navbar } from "./components/Navbar";
 import { DrawLineText } from "./components/gsap/draw-line-text";
 import { Analysis } from "./pages/Analysis";
 import LiquidEther from "./components/LiquidEther";
+import Help from "./pages/help";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -14,6 +15,7 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Analysis />} />
+        <Route path="/help" element={<Help />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AnimatePresence>

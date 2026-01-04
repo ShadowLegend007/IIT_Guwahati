@@ -24,7 +24,7 @@ export function Home() {
 
             <footer className="py-8 border-t border-white/5 glass-card mt-auto">
                 <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-                    © 2025 NeuraGlance. AI insight for safer choices.
+                    © 2026 NeuraGlance. AI insight for safer choices.
                 </div>
             </footer>
         </>

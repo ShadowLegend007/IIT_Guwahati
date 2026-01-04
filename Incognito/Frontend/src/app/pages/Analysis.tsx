@@ -26,7 +26,7 @@ export function Analysis() {
     };
 
     const handleAnalyze = async (input: string, file?: File) => {
-        setCurrentInput(input);
+        setCurrentInput(input || (file ? file.name : ""));
         setUploadedFile(file || null);
         setIsLoading(true);
         setError(null);
@@ -62,7 +62,7 @@ export function Analysis() {
                         transition={{ duration: 0.4 }}
                         className="w-full max-w-4xl mx-auto px-4 flex flex-col items-center justify-center min-h-[80vh]"
                     >
-                        <div className="flex justify-center mb-6">
+                        <div className="flex justify-start w-full sm:justify-center mb-6">
                             <SplitText
                                 text="Hi User"
                                 className="text-3xl md:text-5xl font-bold text-foreground pb-2 text-center"
@@ -78,13 +78,29 @@ export function Analysis() {
                             />
                         </div>
                         <ScrollReveal>
-                            <p className="text-text-secondary max-w-xl mx-auto mb-10 text-lg text-center">
-                                Analyze any food product to understand its health impact
+                            <p className="text-text-secondary max-w-xl mx-auto mb-10 text-xl sm:text-center">
+                                Let’s uncover the foodie mystery in your hand!
+                            </p>
+                            <div className="min-h-[100px] w-full">
+                            </div>
+                            <p className="text-text-secondary max-w-xl mx-auto mb-5 text-lg sm:text-center">
+                                How do you want to show it?
                             </p>
 
                             <div className="w-full">
                                 <MagicInput onAnalyze={handleAnalyze} />
                             </div>
+                            
+                            <p className="text-text-secondary max-w-xl mx-auto my-10 text-lg text-center">
+                                I’ll scan the risks for you and tell you if it’s worth eating, simple and stress-free
+                            </p>
+                            <div className="min-h-[50px]">
+
+                            </div>
+                            <p className="text-text-secondary max-w-xl opacity-70 mx-auto my-10 text-sm text-center">
+                                ⚠️ I may make mistakes. Please double-check the label if needed.
+                            </p>
+
                         </ScrollReveal>
                     </motion.div>
                 )}

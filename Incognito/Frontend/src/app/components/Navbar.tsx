@@ -22,7 +22,7 @@ export function Navbar() {
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
                         >
-                            <div className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-blue-600 bg-clip-text text-transparent">
+                            <div onClick={() => window.location.reload()} className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-blue-600 bg-clip-text text-transparent">
                                 Incognito
                             </div>
                         </motion.div>

@@ -50,9 +50,10 @@ async def analyze(
         raise HTTPException(400, "Provide product name or image")
     
     # check that the products category
+    print("product_name: ", query)
     category = check_product_category(query)
     result = category
-    print("result: ", result)
+    print("category: ", result)
     
     if result == "packaged_food":
         product = get_product_from_openfoodfacts(query)

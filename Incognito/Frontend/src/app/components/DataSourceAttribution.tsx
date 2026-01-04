@@ -10,6 +10,10 @@ interface DataSourceAttributionProps {
 
 export function DataSourceAttribution({ dataSource, confidenceLevel, sourceUrl }: DataSourceAttributionProps) {
     const getConfidenceColor = (level: string) => {
+        // --- FIX START: Add safety check ---
+        if (!level) return "text-gray-500 bg-gray-500/10 border-gray-500/20";
+        // --- FIX END ---
+
         switch (level.toLowerCase()) {
             case "high":
                 return "text-green-500 bg-green-500/10 border-green-500/20";
@@ -39,7 +43,8 @@ export function DataSourceAttribution({ dataSource, confidenceLevel, sourceUrl }
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div>
                         <div className="text-xs text-muted-foreground mb-0.5">Source</div>
-                        <div className="text-base font-bold text-foreground">{dataSource}</div>
+                        {/* Add fallback for dataSource as well just in case */}
+                        <div className="text-base font-bold text-foreground">{dataSource || "Unknown Source"}</div>
                     </div>
                     <SourceButton url={sourceUrl} sourceName={dataSource} label="View Source" />
                 </div>
@@ -52,7 +57,8 @@ export function DataSourceAttribution({ dataSource, confidenceLevel, sourceUrl }
                             confidenceLevel
                         )}`}
                     >
-                        {confidenceLevel}
+                        {/* Fallback text if confidenceLevel is missing */}
+                        {confidenceLevel || "N/A"}
                     </div>
                 </div>
 
