@@ -95,20 +95,88 @@ curl -X 'POST' \
 Example Response (JSON Snippet)
 ```JSON
 {
-  "status": "success",
-  "product": {
-    "name": "Horlicks Classic Malt",
-    "brand": "GSK",
-    "category": "Beverages"
-  },
-  "verdict": {
-    "label": "occasionally_safe",
-    "headline": "OCCASIONALLY SAFE",
-    "subtext": "High in sugar, best consumed in moderation."
-  },
-  "nutrition_score": {
-    "grade": "C"
-  }
+    "status": "success",
+    "input": {
+        "product_name": "krishna ghee",
+        "input_type": "image",
+        "image_provided": true
+    },
+    "product": {
+        "name": "Udhaya Krishna Ghee 500ML",
+        "brand": "Unknown",
+        "category": "Unknown",
+        "country": "en:france"
+    },
+    "marketing": {
+        "labels": [],
+        "claims": []
+    },
+    "images": {
+        "input_image": {
+            "filename": "",
+            "file": {},
+            "size": 0,
+            "headers": {
+                "content-disposition": "form-data; name=\"image\"; filename=\"\""
+            },
+            "_max_mem_size": 1048576
+        },
+        "reference_images": [
+            "https://images.openfoodfacts.org/images/products/890/800/065/5119/front_fr.3.400.jpg",
+            "",
+            ""
+        ],
+        "source": "openfoodfacts"
+    },
+    "nutrition": {
+        "per_100g": {
+            "energy_kcal": 900,
+            "protein_g": "0.1",
+            "carbs_g": 0,
+            "sugar_g": 0,
+            "fat_g": 14,
+            "sat_fat_g": "8.9",
+            "sodium_mg": 0.0
+        },
+        "source_url": "[https://world.openfoodfacts.org/product/](https://world.openfoodfacts.org/product/)8908000655119",
+        "data_confidence": "high"
+    },
+    "verdict": {
+        "label": "occasionally_safe",
+        "headline": "OCCASIONALLY SAFE",
+        "subtext": "Ghee is a highly calorie-dense fat. While it can be part of a healthy diet, daily large consumption should be avoided due to its high fat and calorie content."
+    },
+    "overall_score": {
+        "percent": 55,
+        "interpretation": "This product is a pure fat source, meaning it's very high in calories. It should be consumed in small, controlled portions to fit within a balanced daily diet."
+    },
+    "nutrition_score": {
+        "grade": "C"
+    },
+    "key_takeaways": {
+        "possible_concern": "Its extremely high calorie and fat content means it can easily contribute to excess energy intake if not consumed in very small quantities.",
+        "generally_safe": "As a traditional fat source, ghee is generally safe when used sparingly in cooking or as a flavour enhancer.",
+        "depends_on_use": "The suitability of this product largely depends on the portion size and frequency of consumption within your overall dietary plan."
+    },
+    "age_suitability": {
+        "children_0_12": "Can be included in small amounts to add energy to meals, but excessive intake should be avoided due to high calorie density.",
+        "young_12_45": "Suitable in moderation as part of a balanced diet; mindful portion control is important due to high fat and calorie content.",
+        "adults_45_plus": "Can be consumed in small quantities, but individuals should be particularly mindful of overall fat and calorie intake for heart health and weight management."
+    },
+    "health_suitability": {
+        "diabetes": "As it contains no sugar, it won't directly impact blood sugar, but the high calorie content should be considered for overall energy balance.",
+        "heart": "Due to its high fat content, including saturated fat, individuals concerned with heart health should consume it in strict moderation.",
+        "weight": "Extremely high in calories per gram, making portion control vital for those managing or trying to lose weight.",
+        "normal": "Generally safe for individuals with normal health when consumed in small, controlled portions as part of a varied diet."
+    },
+    "ai_opinion": {
+        "text": "Ghee is a traditional source of fat that is very calorie-dense. While it can be incorporated into a balanced diet, it is crucial to use it in small quantities due to its high fat and calorie content to avoid excessive energy intake. As ingredients and processing levels are unknown, choosing a reputable brand is advisable."
+    },
+    "meta": {
+        "data_source": "OpenFoodFacts",
+        "analysis_type": "AI-interpreted",
+        "confidence_level": "medium"
+    }
 }
 ```
 
