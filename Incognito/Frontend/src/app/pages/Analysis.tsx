@@ -56,26 +56,23 @@ export function Analysis() {
                 {!showAnalysis && !isLoading && (
                     <motion.div
                         key="input-section"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.4 }}
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -50 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
                         className="w-full max-w-4xl mx-auto px-4 flex flex-col items-center justify-center min-h-[80vh]"
                     >
-                        <div className="flex justify-start w-full sm:justify-center mb-6">
-                            <SplitText
-                                text="Hi User"
-                                className="text-3xl md:text-5xl font-bold text-foreground pb-2 text-center"
-                                delay={100}
-                                duration={0.6}
-                                ease="power3.out"
-                                splitType="chars"
-                                from={{ opacity: 0, y: 40 }}
-                                to={{ opacity: 1, y: 0 }}
-                                threshold={0.1}
-                                rootMargin="-100px"
-                                textAlign="center"
-                            />
+                        <div className="flex justify-center mb-6">
+                            <div className="flex justify-center mb-6">
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1, duration: 0.6 }}
+                                    className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent pb-2 text-center"
+                                >
+                                    Hi User
+                                </motion.h1>
+                            </div>
                         </div>
                         <ScrollReveal>
                             <p className="text-text-secondary max-w-xl mx-auto mb-10 text-xl sm:text-center">
@@ -90,7 +87,7 @@ export function Analysis() {
                             <div className="w-full">
                                 <MagicInput onAnalyze={handleAnalyze} />
                             </div>
-                            
+
                             <p className="text-text-secondary max-w-xl mx-auto my-10 text-lg text-center">
                                 I’ll scan the risks for you and tell you if it’s worth eating, simple and stress-free
                             </p>

@@ -5,8 +5,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { Navbar } from "./components/Navbar";
 import { DrawLineText } from "./components/gsap/draw-line-text";
 import { Analysis } from "./pages/Analysis";
+import { About } from "./pages/About";
+import { Help } from "./pages/Help";
 import LiquidEther from "./components/LiquidEther";
-import Help from "./pages/help";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -15,6 +16,7 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Analysis />} />
+        <Route path="/about" element={<About />} />
         <Route path="/help" element={<Help />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
@@ -107,8 +109,8 @@ function App() {
                 }}
               >
                 <DrawLineText
-                  text="I ncognito"
-                  fontSize={60}
+                  text="Incognito"
+                  fontSize={80}
                   strokeWidth={1.5}
                   color="#7c3aed"
                   duration={2.0}

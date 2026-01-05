@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-export function ThemeToggle() {
+export function ThemeToggle({ className = "" }: { className?: string }) {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <label className="swap swap-rotate p-2.5 rounded-pill glass-card border border-border-glass hover:border-accent/50 hover:glow-purple transition-all duration-300 group">
+    <label className={`swap swap-rotate p-2.5 rounded-pill glass-card border border-border-glass hover:border-accent/50 hover:glow-purple transition-all duration-300 group ${className}`}>
       {/* this hidden checkbox controls the state */}
       <input
         type="checkbox"
