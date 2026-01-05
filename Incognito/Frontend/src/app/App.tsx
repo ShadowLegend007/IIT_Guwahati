@@ -109,7 +109,7 @@ function App() {
                 }}
               >
                 <DrawLineText
-                  text="Incognito"
+                  text="I ncognito"
                   fontSize={80}
                   strokeWidth={1.5}
                   color="#7c3aed"
