@@ -139,4 +139,4 @@ curl -X 'POST' 'http://127.0.0.1:8000/analyze' -F 'product_name=Horlicks'
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-&copy; 2025 Incognito. All rights reserved.
+&copy; 2026 Incognito. All rights reserved.
